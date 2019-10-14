@@ -1,44 +1,45 @@
 # scores
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-import csv
-import re, time
-import datetime
-import numpy as np
-import pandas as pd
 
-start_URL = ('https://www.scoresandodds.com/gameDate/2019-09-26')
-start_URL = start_URL[:-10] #Strips the date from the start_URL
-date1 = '2019-09-05' #Starting date of URL to scrape
-date2 = '2019-09-17' #Ending date of URL to scrape
-start = datetime.datetime.strptime(date1, '%Y-%m-%d') #Puts starting date into date format
-end = datetime.datetime.strptime(date2, '%Y-%m-%d') #Puts ending date into date format
-step = datetime.timedelta(days=1) #One day between each date
-new_URL_list = [] #Open up a new_URL list
-while start <= end:
-    date = start.date()
-    if date.weekday() == 0 or date.weekday() == 3 or date.weekday() == 6: #For Mondays, Thursdays, and Sundays only
-        date = str(start.date())
-        new_URL = start_URL + date
-        new_URL_list.append(new_URL)
-    start += step 
-new_URL_list #New URLs created from taking stripped down URLs and attaching filtered dates back onto them
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support import expected_conditions as EC
+    import csv
+    import re, time
+    import datetime
+    import numpy as np
+    import pandas as pd
 
-driver = webdriver.Chrome() 
-csv_file = open('scores.csv', 'w', encoding='utf-8', newline='')
-writer = csv.writer(csv_file)
+    start_URL = ('https://www.scoresandodds.com/gameDate/2019-09-26')
+    start_URL = start_URL[:-10] #Strips the date from the start_URL
+    date1 = '2019-09-05' #Starting date of URL to scrape
+    date2 = '2019-09-17' #Ending date of URL to scrape
+    start = datetime.datetime.strptime(date1, '%Y-%m-%d') #Puts starting date into date format
+    end = datetime.datetime.strptime(date2, '%Y-%m-%d') #Puts ending date into date format
+    step = datetime.timedelta(days=1) #One day between each date
+    new_URL_list = [] #Open up a new_URL list
+    while start <= end:
+        date = start.date()
+        if date.weekday() == 0 or date.weekday() == 3 or date.weekday() == 6: #For Mondays, Thursdays, and Sundays only
+            date = str(start.date())
+            new_URL = start_URL + date
+            new_URL_list.append(new_URL)
+        start += step 
+    new_URL_list #New URLs created from taking stripped down URLs and attaching filtered dates back onto them
 
-print(new_URL_list[:2])
-for new_URL in new_URL_list[:2]: #Loops the first two URLs in new URL list. (Sometimes can only get data on a couple dates at time, sometimes more)
-    print(new_URL)
-    
-    
-    driver.get(new_URL)
-    print('connected to:', new_URL)
-    try:
+    driver = webdriver.Chrome() 
+    csv_file = open('scores.csv', 'w', encoding='utf-8', newline='')
+    writer = csv.writer(csv_file)
+
+    print(new_URL_list[:2])
+    for new_URL in new_URL_list[:2]: #Loops the first two URLs in new URL list. (Sometimes can only get data on a couple dates at time, sometimes more)
+        print(new_URL)
+
+
+        driver.get(new_URL)
+        print('connected to:', new_URL)
+        try:
         
         time_ = driver.find_elements_by_xpath('//div[@class="league-wrapper ng-scope"]')
         time_ = time_[0].find_elements_by_xpath('.//div[@class="inner"]/span[@class="time ng-binding ng-scope"]')
