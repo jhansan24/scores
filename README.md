@@ -102,10 +102,10 @@
                 d['Closed Spread'] = dc['closed_spread'][i]
                 writer.writerow(d.values())
 
-    except Exception as e:
-        print(e)
+        except Exception as e:
+            print(e)
     
-        break
+            break
 # scores_R
 
     library(plyr)
