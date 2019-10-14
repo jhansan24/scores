@@ -1,4 +1,4 @@
-# scores
+# scores_selenium
 
     from selenium import webdriver
     from selenium.webdriver.chrome.options import Options
@@ -106,3 +106,36 @@
         print(e)
     
         break
+# scores_R
+
+    library(plyr)
+    count(scores_data,"total_result") #Counts frequency of total_results
+    count(scores_data,"spread_result") #Counts frequency of total_results
+
+    slices <- c(138, 152, 40) #Slices of my pie chart
+    labels <- c("Failure", "Sucess", "Stagnant") #Labels of my pie
+    pct <- round(slices/sum(slices)*100) #Converts to percentage
+    labels <- paste(labels, pct) # Add percents to labels
+    labels <- paste(labels,"%",sep="") # Add %'s to labels
+    pie(slices,labels = labels,col=rainbow(3),main="All Totals") #Formats pie chart
+
+    slices <- c(138, 152) #Slices of my pie chart
+    labels <- c("Failure", "Sucess") #Labels of my pie
+    pct <- round(slices/sum(slices)*100) #Converts to percentage
+    labels <- paste(labels, pct) # Add percents to labels
+    labels <- paste(labels,"%",sep="") # Add %'s to labels
+    pie(slices,labels = labels,col=rainbow(3),main="Only Moving Totals") #Formats pie chart
+
+    slices <- c(120, 126, 84) #Slices of my pie chart
+    labels <- c("Failure", "Sucess", "Stagnant") #Labels of my pie
+    pct <- round(slices/sum(slices)*100) #Converts to percentage
+    labels <- paste(labels, pct) # Add percents to labels
+    labels <- paste(labels,"%",sep="") # Add %'s to labels
+    pie(slices,labels = labels,col=rainbow(3),main="All Spreads") #Formats pie chart
+
+    slices <- c(120, 126) #Slices of my pie chart
+    labels <- c("Failure", "Sucess") #Labels of my pie
+    pct <- round(slices/sum(slices)*100) #Converts to percentage
+    labels <- paste(labels, pct) # Add percents to labels
+    labels <- paste(labels,"%",sep="") # Add %'s to labels
+    pie(slices,labels = labels,col=rainbow(3),main="Only Moving Spreads") #Formats pie chart
